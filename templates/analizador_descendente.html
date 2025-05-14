@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Analizador Aritmético Web</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_descendente.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Analizador Aritmético</h1>
+        <form method="post">
+            <label>Expresión aritmética:</label><br>
+            <input type="text" name="expression" value="{{ expression }}" placeholder="Ej: 3 + 5 * (2 - 1)" required><br>
+            <button type="submit">Analizar</button>
+        </form>
+
+        {% if ast_result %}
+        <div class="result">
+            <h2>AST Resultante:</h2>
+            <pre>{{ ast_result }}</pre>
+        </div>
+        {% endif %}
+
+        {% if eval_result is not none %}
+        <div class="result">
+            <h2>Resultado:</h2>
+            <p>{{ eval_result }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

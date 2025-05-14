@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Analizador Matemático con PLY y Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_ply.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Analizador Matemático con PLY y Flask</h1>
+        <form id="calcForm">
+            <input type="text" id="expression" name="expression" placeholder="Escribe una expresión matemática" required />
+            <button type="submit">Evaluar</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('calcForm');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const expression = document.getElementById('expression').value;
+
+            const response = await fetch('/eval_ply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ expression })
+            });
+
+            if (!response.ok) {
+                resultDiv.textContent = 'Error en la respuesta del servidor';
+                return;
+            }
+
+            const data = await response.json();
+            resultDiv.textContent = 'Resultado: ' + data.result;
+        });
+    </script>
+</body>
+</html>
