@@ -14,10 +14,17 @@
             <button type="submit">Analizar</button>
         </form>
 
-        {% if ast_result %}
+        {% if error_msg %}
+        <div class="error" style="color:red;">
+            <h2>Error:</h2>
+            <p>{{ error_msg }}</p>
+        </div>
+        {% endif %}
+
+        {% if expr_words %}
         <div class="result">
-            <h2>AST Resultante:</h2>
-            <pre>{{ ast_result }}</pre>
+            <h2>Expresión en palabras:</h2>
+            <p>{{ expr_words }}</p>
         </div>
         {% endif %}
 
